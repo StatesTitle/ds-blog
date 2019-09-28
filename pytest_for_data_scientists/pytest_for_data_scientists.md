@@ -15,9 +15,21 @@ Example code in this post is available in our `ds-blog` GitHub repo in a directo
 ## Developing tests in pytest
 Before we can write a test, we need something to test! Suppose we need to create a new (simple) feature that is the difference of two columns in a dataframe. A common way of implementing this feature is to write a function that looks something like this:
 
+```python
+def column_difference(df, col1, col2):
+    """Subtract items in `col1` from items in `col2` elementwise (e.g. df[col1] - df[col2)]"""
+    return df[col1] - df[col2]
+```
+
 This allows us to compute the difference of two columns for any Pandas dataframe that we pass in. Calling the function looks like this:
 
 In order to test this function, we need to define some input data, call the function on the input, and compare the returned output to the output that we expect. Here are those steps, written in a test function that we can run with pytest:
+```python
+def test_column_difference():  # (1)
+    test_df = pd.DataFrame([(1, 2), (3, 4)], columns=["A", "B"])  # (2)
+    test_df["A_minus_B"] = column_difference(test_df, col1="A", col2="B")  # (3)
+    assert all(test_df["A_minus_B"] == pd.Series([-1, -1]))  # (4)
+```
 
 The following explains each line in the function above:
 
