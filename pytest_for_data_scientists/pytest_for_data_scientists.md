@@ -37,6 +37,8 @@ The following explains each line in the function above:
 
 How do we run the test? There are a few options, but one option that fits data science development workflows is to run tests in a [Jupyter](https://jupyter.org/) notebook using the [`pip`](https://github.com/pypa/pip) installable module [`ipytest`](https://github.com/chmp/ipytest/). Here is an example of what that looks like for the test function we developed:
 
+![Running the test in a notebook using ipytest](resources/run_test_with_ipytest.png)
+
 1. Configuration steps for `ipytest`, described [here](https://github.com/chmp/ipytest#usage)
 2. We define our test function the same way as before
 3. Command line arguments can be passed into `ipytest.run` as a string
@@ -53,9 +55,12 @@ We’ll talk about how we can handle a project that grows beyond a `Jupyter` not
 Now, time to talk about every data scientist's favorite topic...
 ## Moving beyond a notebook
 Once the project grows beyond the scope of a single notebook, we may want to move our feature creation function and the corresponding test code to a “.py” file.  When we do this, we can use the command line tool `py.test` that is installed along with `pytest` to run our test functions. For example, I’ve defined both our `column_difference` function and its corresponding test function in a file called “features.py”. Here is what calling `py.test` on that file looks like:
-
+```bash
+py.test -svvv ./features.py
+```
 This results in the following:
-![Example using of using the py.test command line tool](resources/run_test_with_pytest.png)
+
+![Running the test with the py.test command line tool](resources/run_test_with_pytest.png)
 
 Eventually, we may want to move our test code into a separate file. If we include “test” in the name of the file, just as we included “test” in the test function name, the `py.test` command line tool can automatically detect and run the test code in those files. More information about how test discovery works is available in the pytest [documentation](https://doc.pytest.org/en/latest/goodpractices.html#conventions-for-python-test-discovery).
 ## Parametrizing data-intensive tests
