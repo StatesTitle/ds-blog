@@ -122,6 +122,11 @@ def test_column_difference_with_parametrize(test_data, columns, expected_output)
 4. Using `parametrize` makes the test code much easier to read
 
 When we run a test function decorated with parametrize, each item in the list that defines the test parameters is run as a separate test input. Pytest shows whether each test passes or fails separately. An example of running the `py.test` command line tool on the `parametrize`d test function is shown below:
+
+![Running a parametrized test provides output for each test input](resources/run_parametrized_test_with_pytest.png)
+
+If one the the test inputs from the list causes the test to fail, we will see a diff for the failure just as before.
+
 ## Wrapping up
 This post has provided an intro to `pytest` with a motivating example that should resonate with data scientists. We’ve covered what a test looks like in `pytest`, how to run `pytest` tests in a notebook, and how to utilize the `parametrize` decorator to simplify data-intensive tests.
 
