@@ -1,7 +1,7 @@
 # pytest for Data Scientists
 Most tutorials and books on software testing are written for software engineers. Although there is a ton of useful information in these resources, I find that the examples are often hard to adapt to the problems we face as data scientists. As a result, I’ve found that there is much less of a focus on writing well tested software among data scientists. This is a shame because writing tests is key to creating maintainable software, something that should be a top priority of every data scientist.
 
-With that in mind, this post provides an introduction to a popular testing framework, [pytest](https://pytest.org/), with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
+With that in mind, this post provides an introduction to a popular testing framework, [`pytest`](https://pytest.org/), with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
 
 Before we get into the details of how to write tests in pytest, let’s talk a little more about why I think writing tests is so important for data scientists.
 ## Why we need to write tests as data scientists
