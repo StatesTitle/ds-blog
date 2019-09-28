@@ -50,7 +50,7 @@ A second advantage of utilizing `pytest` in a Jupyter notebook is that it allows
 
 We’ll talk about how we can handle a project that grows beyond a `Jupyter` notebook in a sec but first, a quick word of warning; one thing to be careful about with `ipytest` is renaming test functions during development. When a test function is defined and then subsequently renamed, the first definition still exists in the runtime of the notebook and will be called when `ipytest.run` is invoked. This can cause confusing behavior where modifying test code doesn’t seem to make any difference when running the tests.
 
-Now, time to talk about every data scientists favorite topic...
+Now, time to talk about every data scientist's favorite topic...
 ## Moving beyond a notebook
 Once the project grows beyond the scope of a single notebook, we may want to move our feature creation function and the corresponding test code to a “.py” file.  When we do this, we can use the command line tool `py.test` that is installed along with `pytest` to run our test functions. For example, I’ve defined both our `column_difference` function and its corresponding test function in a file called “features.py”. Here is what calling `py.test` on that file looks like:
 
