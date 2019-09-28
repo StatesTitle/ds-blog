@@ -20,7 +20,9 @@ def column_difference(df, col1, col2):
     return df[col1] - df[col2]
 ```
 This allows us to compute the difference of two columns for any Pandas dataframe that we pass in. Calling the function looks like this:
-
+```python
+df["A_minus_B"] = column_difference(df, "A", "B")
+```
 In order to test this function, we need to define some input data, call the function on the input, and compare the returned output to the output that we expect. Here are those steps, written in a test function that we can run with pytest:
 ```python
 def test_column_difference():  # (1)
