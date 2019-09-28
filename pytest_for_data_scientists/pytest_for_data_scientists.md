@@ -37,7 +37,7 @@ The following explains each line in the function above:
 
 How do we run the test? There are a few options, but one option that fits data science development workflows is to run tests in a [Jupyter](https://jupyter.org/) notebook using the [`pip`](https://github.com/pypa/pip) installable module [`ipytest`](https://github.com/chmp/ipytest/). Here is an example of what that looks like for the test function we developed:
 
-![Running the test in a notebook using ipytest](resources/run_test_with_ipytest.png)
+![Running the test in a notebook using ipytest](resources/run_test_with_ipytest2.png)
 
 1. Configuration steps for `ipytest`, described [here](https://github.com/chmp/ipytest#usage)
 2. We define our test function the same way as before
