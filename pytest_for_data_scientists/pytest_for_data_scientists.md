@@ -55,7 +55,7 @@ Now, time to talk about every data scientist's favorite topic...
 Once the project grows beyond the scope of a single notebook, we may want to move our feature creation function and the corresponding test code to a “.py” file.  When we do this, we can use the command line tool `py.test` that is installed along with `pytest` to run our test functions. For example, I’ve defined both our `column_difference` function and its corresponding test function in a file called “features.py”. Here is what calling `py.test` on that file looks like:
 
 This results in the following:
-[Example using of using the py.test command line tool](resources/run_test_with_pytest.png)
+![Example using of using the py.test command line tool](resources/run_test_with_pytest.png)
 
 Eventually, we may want to move our test code into a separate file. If we include “test” in the name of the file, just as we included “test” in the test function name, the `py.test` command line tool can automatically detect and run the test code in those files. More information about how test discovery works is available in the pytest [documentation](https://doc.pytest.org/en/latest/goodpractices.html#conventions-for-python-test-discovery).
 ## Parametrizing data-intensive tests
