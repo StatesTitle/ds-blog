@@ -1,7 +1,7 @@
 # pytest for Data Scientists
 Most tutorials and books on software testing are written for software engineers. Although there is a ton of useful information in these resources, I find that the examples are often hard to adapt to the problems we face as data scientists. As a result, I’ve found that there is much less of a focus on writing well tested software among data scientists. This is a shame because writing tests is key to creating maintainable software, something that should be a top priority of every data scientist.
 
-With that in mind, this post provides an introduction to a popular testing framework, pytest, with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
+With that in mind, this post provides an introduction to a popular testing framework, [pytest](https://pytest.org/), with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
 
 Before we get into the details of how to write tests in pytest, let’s talk a little more about why I think writing tests is so important for data scientists.
 ## Why we need to write tests as data scientists
@@ -11,7 +11,7 @@ The answer is testing. When we’ve written a test that verifies that the code u
 
 With this is mind, let’s take a look at how we can start testing our data science code with pytest!
 ## Prerequisites
-Example code in this post is available in our `ds-blog` GitHub repo in a directory named `pytest_for_data_scientists`. This directory contains a “requirements.txt” that specifies required dependencies. See the `README.md` file for more info.
+Example code in this post is available in our [`ds-blog`](https://github.com/StatesTitle/ds-blog/) GitHub repo in a directory named [`pytest_for_data_scientists`](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists). This directory contains a ["requirements.txt"](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists/requirements.txt) that specifies required dependencies. See the [`README.md`](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists/README.md) file for more info.
 ## Developing tests in pytest
 Before we can write a test, we need something to test! Suppose we need to create a new (simple) feature that is the difference of two columns in a dataframe. A common way of implementing this feature is to write a function that looks something like this:
 ```python
@@ -35,9 +35,9 @@ The following explains each line in the function above:
 3. We call the function on the test DataFrame input
 4. The condition in the `assert` statement causes the test to pass or fail depending on whether the statement is `True` or `False`
 
-How do we run the test? There are a few options, but one option that fits data science development workflows is to run tests in a Jupyter notebook using the `pip` installable module `ipytest`. Here is an example of what that looks like for the test function we developed:
+How do we run the test? There are a few options, but one option that fits data science development workflows is to run tests in a [Jupyter](https://jupyter.org/) notebook using the [`pip`](https://github.com/pypa/pip) installable module [`ipytest`](https://github.com/chmp/ipytest/). Here is an example of what that looks like for the test function we developed:
 
-1. Configuration steps for `ipytest`, described here
+1. Configuration steps for `ipytest`, described [here](https://github.com/chmp/ipytest#usage)
 2. We define our test function the same way as before
 3. Command line arguments can be passed into `ipytest.run` as a string
 
@@ -56,7 +56,7 @@ Once the project grows beyond the scope of a single notebook, we may want to mov
 
 This results in the following:
 
-Eventually, we may want to move our test code into a separate file. If we include “test” in the name of the file, just as we included “test” in the test function name, the `py.test` command line tool can automatically detect and run the test code in those files. More information about how test discovery works is available in the pytest documentation.
+Eventually, we may want to move our test code into a separate file. If we include “test” in the name of the file, just as we included “test” in the test function name, the `py.test` command line tool can automatically detect and run the test code in those files. More information about how test discovery works is available in the pytest [documentation](https://doc.pytest.org/en/latest/goodpractices.html#conventions-for-python-test-discovery).
 ## Parametrizing data-intensive tests
 So far, we’ve only provided one dataframe as input to our test function. We probably want to add a few more dataframes as separate test cases to ensure that our function works for a variety of input. One way to achieve that is to extend the test function with additional data and call the test function again:
 ```python
@@ -81,7 +81,7 @@ def test_column_difference():
     test_df["A_minus_B"] = column_difference(test_df, col1="A", col2="B")
     assert all(test_df["A_minus_B"] == pd.Series([]))
 ```
-This works but it’s hard to tell that all we are doing is testing the same function over-and-over again with different input. Adding a comment to describe this would be an improvement but, since we are utilizing pytest, there is another way to write this test that makes the test code simple to understand. Specifically, the `parametrize` decorator allows us to separate the test data from the logic of the test function.
+This works but it’s hard to tell that all we are doing is testing the same function over-and-over again with different input. Adding a comment to describe this would be an improvement but, since we are utilizing pytest, there is another way to write this test that makes the test code simple to understand. Specifically, the [`parametrize`](https://docs.pytest.org/en/latest/parametrize.html#pytest-mark-parametrize-parametrizing-test-functions) decorator allows us to separate the test data from the logic of the test function.
 
 Here is the same example as above, using `parametrize`:
 ```python
