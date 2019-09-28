@@ -45,6 +45,8 @@ How do we run the test? There are a few options, but one option that fits data s
 
 There are a couple advantages to utilizing `pytest` when developing test functions in a Jupyter notebook. The first advantage is that when the test fails, pytest provides a detailed diff that allows us to precisely pinpoint why the test failed. This is shown in the following:
 
+![Running a failing test in a notebook shows a diff](resources/run_failing_test_with_ipytest.png)
+
 1. We’ve changed the expected output of the test so that the test fails
 2. The diff provided by `pytest` allows us to pinpoint exactly where the test failed
 
