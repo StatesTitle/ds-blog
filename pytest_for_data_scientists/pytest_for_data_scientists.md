@@ -1,15 +1,17 @@
 # pytest for Data Scientists
-Most tutorials and books on software testing are written for software engineers. Although there is a ton of useful information in these resources, I find that the examples are often hard to adapt to the problems we face as data scientists. As a result, I’ve found that there is much less of a focus on writing well tested software among data scientists. This is a shame because writing tests is key to creating maintainable software, something that should be a top priority of every data scientist.
+Creating automated tests for software is second nature to great software engineers, and it’s a habit that data scientists should mirror. By thoroughly testing code used to develop a model, data scientists can increase model robustness and, as a result, create obsessed customers that stick to our product due to its reliability
 
-With that in mind, this post provides an introduction to a popular testing framework, [`pytest`](https://pytest.org/), with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
+Most tutorials and books on creating automated software tests are written for software engineers. Although there is a ton of useful information in these resources, I find that the examples are often hard to adapt to the problems we face as data scientists. As a result, I’ve found that there is much less of a focus on writing well tested software among data scientists. This is a shame because writing tests is key to creating maintainable software and reliable models that are easy to monitor, something that should be a top priority of every data scientist.
 
-Before we get into the details of how to write tests in pytest, let’s talk a little more about why I think writing tests is so important for data scientists.
-## Why we need to write tests as data scientists
-As I mentioned before, writing tests is key to writing maintainable software. This is particularly important for data science which follows an iterative research and development process that rotates through the steps of data cleaning, data analysis, feature engineering, and model development. Each time through this rotation builds on work that was done in a previous iteration modifying, for example, code that’s used to generate a feature. How can we be confident that the changes we make don’t unintentionally affect other steps in the pipeline?
+With that in mind, this post provides an introduction to a popular testing framework, pytest, with an example that will resonate with data scientists. We’ll explore pytest’s intuitive approach to testing through a motivating example for testing data science code. We’ll discuss a few ways of structuring a project to support testing. We’ll close by introducing pytest’s `parametrize` decorator, an advanced feature that enables writing simple tests for data-intensive code.
 
-The answer is testing. When we’ve written a test that verifies that the code used to generate a feature is correct, we can be confident that when we make changes to the code, we are not changing the behavior of the feature in an unintended way. This is not to say that we should never change code because we don’t want to break the test. Instead, we should update the test alongside the code, verifying that the changes we make to the code require changes to the tests that we expect.
+Before we get into the details of how to write tests in pytest, let’s talk a little more about the deeper reasons why I think writing tests is so important for data scientists.
+## Why tests ensure greater model reliability
+As I mentioned before, writing tests is key to writing maintainable software. This is particularly important for data science which follows an iterative research and development process that rotates through the steps of data cleaning, data analysis, feature engineering, and model development. Each time through this rotation builds on work that was done in a previous iteration - modifying, for example, code that’s used to generate a feature. How can we be confident that the changes we make don’t unintentionally affect other steps in the pipeline?
 
-With this is mind, let’s take a look at how we can start testing our data science code with pytest!
+The answer is testing. When we’ve written a test that verifies that our feature generation code is correct, we can be confident that changes to the code are not changing the behavior of the feature in an unintended way. Often, we will make changes that break a test. This is okay! A test simply captures how a piece of code behaves at a certain time and the behavior of code can change! When this happens, we just need to understand why the behavior of the code changed and update the test accordingly. 
+
+With this in mind, let’s take a look at how we can start testing our data science code with pytest!
 ## Prerequisites
 Example code in this post is available in our [`ds-blog`](https://github.com/StatesTitle/ds-blog/) GitHub repo in a directory named [`pytest_for_data_scientists`](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists). This directory contains a ["requirements.txt"](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists/requirements.txt) that specifies required dependencies. See the [`README.md`](https://github.com/StatesTitle/ds-blog/pytest_for_data_scientists/README.md) file for more info.
 ## Developing tests in pytest
@@ -45,16 +47,16 @@ How do we run the test? There are a few options, but one option that fits data s
 2. We define our test function the same way as before
 3. Command line arguments can be passed into `ipytest.run` as a string
 
-There are a couple advantages to utilizing `pytest` when developing test functions in a Jupyter notebook. The first advantage is that when the test fails, pytest provides a detailed diff that allows us to precisely pinpoint why the test failed. This is shown in the following:
+There are a couple advantages to utilizing `pytest` when developing test functions in a Jupyter notebook. One advantage is that when the test fails, pytest provides a detailed diff that allows us to precisely pinpoint why the test failed. This is shown in the following:
 
 ![Running a failing test in a notebook shows a diff](resources/run_failing_test_with_ipytest.png)
 
 1. We’ve changed the expected output of the test so that the test fails
 2. The diff provided by `pytest` allows us to pinpoint exactly where the test failed
 
-A second advantage of utilizing `pytest` in a Jupyter notebook is that it allows us to easily transition from a notebook to tests stored in a “.py” file once our project grows beyond the scope of a single Jupyter notebook.
+Another advantage of utilizing `pytest` in a Jupyter notebook is that it allows us to easily transition from a notebook to tests stored in a “.py” file once our project grows beyond the scope of a single Jupyter notebook. We'll touch more on this shortly.
 
-We’ll talk about how we can handle a project that grows beyond a `Jupyter` notebook in a sec but first, a quick word of warning; one thing to be careful about with `ipytest` is renaming test functions during development. When a test function is defined and then subsequently renamed, the first definition still exists in the runtime of the notebook and will be called when `ipytest.run` is invoked. This can cause confusing behavior where modifying test code doesn’t seem to make any difference when running the tests.
+One thing to be careful about with `ipytest` is renaming test functions during development. When a test function is defined and then subsequently renamed, the first definition still exists in the runtime of the notebook and will be called when `ipytest.run` is invoked. This can cause confusing behavior where modifying test code doesn’t seem to make any difference when running the tests.
 
 Now, time to talk about every data scientist's favorite topic...
 ## Moving beyond a notebook
@@ -130,7 +132,11 @@ When we run a test function decorated with parametrize, each item in the list th
 If one the the test inputs from the list causes the test to fail, we will see a diff for the failure just as before.
 
 ## Wrapping up
-This post has provided an intro to `pytest` with a motivating example that should resonate with data scientists. We’ve covered what a test looks like in `pytest`, how to run `pytest` tests in a notebook, and how to utilize the `parametrize` decorator to simplify data-intensive tests.
+We’ve covered what a test looks like in `pytest`, how to run `pytest` tests in a notebook, and how to utilize the `parametrize` decorator to simplify data-intensive tests.
+
+If you want to learn more about testing with `pytest`, the `pytest` [documentation](https://doc.pytest.org/en/latest/) is a great place to start! For those who want to dive a little deeper, the book ["Python testing with pytest"](https://pragprog.com/book/bopytest/python-testing-with-pytest) by Brian Okken is frequently recommended. For more tips about writing maintainable software, I recommend ["Working effectively with legacy code"](https://dl.acm.org/citation.cfm?id=1050933) by Michael Feathers.
+
+
 
 One last piece of advice from a mentor of mine before we finish. If you find yourself creating a few example inputs for a function you developed in a notebook to check how the function is working, turn those examples into tests! This enables you to re-run that examples at any time to make sure they still work correctly. This is also a great place to start if you are struggling to get started writing tests!
 
