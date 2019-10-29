@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.impute._base import _get_mask
 from sklearn.impute import SimpleImputer
 
 class DTypeImputer(SimpleImputer):
